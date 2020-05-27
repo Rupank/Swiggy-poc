@@ -1,0 +1,62 @@
+ul{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+.stepsParent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 80vw;
+}
+
+.innerContainerParent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
+}
+.stepTile{
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.stepTileFullWidth{
+    width: 90%;
+    margin-bottom: 20px;
+}
+.stepTileBtn{
+    width: 100%;
+}
+
+.stepTileBtn div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkBoxParent{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.checkBoxContainer{
+    width: 90%;
+}
+.checkBox{
+    width: 100%;
+}

@@ -1,8 +1,11 @@
 import React, { useState, memo } from 'react'
 import * as _ from "lodash";
 import Switch from '@material-ui/core/Switch';
+import CheckBoxWithLabel from './CheckBoxWithLabel';
+import './SwitchList.css';
 
 function SwitchList({ nestedObj, item, filterKey, showChildren }) {
+
     console.log("Trying to make content for ", item, filterKey, nestedObj, showChildren);
     const [checked, setChecked] = useState(false);
     const handleChange = (event) => {
@@ -57,26 +60,28 @@ function SwitchList({ nestedObj, item, filterKey, showChildren }) {
             // Key does not exist
             if (obj['undefined']) {
                 //TODO:: Issues Node 1 Exists Or Either Node 3 exists
-               
-               
-               
-               
+
+
+
+
                 filterKey = "Issues Check Node 2";
                 // else check if Issues Check Node 2 Exists
-                 obj = _.groupBy(obj['undefined'], filterKey);
+                obj = _.groupBy(obj['undefined'], filterKey);
                 obj = _.mapValues(obj, x => x.map(y => _.omit(y, filterKey)));
-                if(obj['undefined']){
+                if (obj['undefined']) {
                     // Issues Node 1 possible in keys
                     // debugger;
                 }
-                else{
-                   let keys = Object.keys(obj);
-                    for(let key of keys){
+                else {
+                    let keys = Object.keys(obj);
+                    for (let key of keys) {
                         final.push(
-                            <li key={key} >{key} </li>);
+                            // <li key={key} >{key} </li>
+                            <CheckBoxWithLabel key={key} label = {key} />
+                        );
                     }
                 }
-                
+
             }
 
             // Checks Node 1 Exists
@@ -86,14 +91,18 @@ function SwitchList({ nestedObj, item, filterKey, showChildren }) {
                 nextFilter = "END";
                 for (let key of checkNode1Keys) {
                     final.push(
-                        <li key={key} >{key} </li>
+                        <CheckBoxWithLabel key={key} label = {key} />
+                        // <li key={key} >{key} </li>
                     )
                 }
             }
         }
         else if (key !== undefined) {
             console.log("Going in 3");
-            final.push(<li key={key} >{key} </li>)
+            final.push(
+                // <li key={key} >{key} </li>
+                <CheckBoxWithLabel key={key} label = {key} />
+            )
         }
 
     }
@@ -111,9 +120,9 @@ function SwitchList({ nestedObj, item, filterKey, showChildren }) {
                 />
             </div>
             {checked &&
-                <ul>
+                <div className ={'checkBoxList'}>
                     {final}
-                </ul>
+                </div>
             }
         </>
     )
