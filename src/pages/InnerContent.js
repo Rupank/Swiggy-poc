@@ -6,7 +6,6 @@ import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
 function InnerContent(props) {
     const { filters } = props;
     const allOkKey = 'All Ok';
-
     const [checkBox, setCheckBox] = useState({
         'All Ok': true
     });
@@ -19,7 +18,7 @@ function InnerContent(props) {
         obj[key] = value;
         setCheckBox({ ...checkBox, ...Object.assign(checkBox, obj) });
     };
-
+    
     const dataNode1 = filters[0];
     const dataNode2 = filters[1];
     const dataNode3 = filters[2];
