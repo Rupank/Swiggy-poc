@@ -6,7 +6,6 @@ import './SwitchList.css';
 
 function SwitchList({ nestedObj, item, filterKey, showChildren }) {
 
-    console.log("Trying to make content for ", item, filterKey, nestedObj, showChildren);
     const [checked, setChecked] = useState(false);
     const handleChange = (event) => {
         setChecked(!checked);

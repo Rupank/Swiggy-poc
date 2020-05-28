@@ -1,4 +1,4 @@
-import { PARSE_DATA_REQUESTED, PARSE_DATA_SUCCESSFUL,FILTER_INNER_DATA_SUCCEDED, FILTER_DATA_SUCCEDED, ROOT_FILTER_APPLIED } from './types';
+import { PARSE_DATA_REQUESTED, PARSE_DATA_SUCCESSFUL, FILTER_INNER_DATA_SUCCEDED, ROOT_FILTER_APPLIED } from './types';
 import data from "../data/data.json";
 import * as _ from 'lodash';
 
@@ -33,31 +33,79 @@ export const parseData = () => (dispatch) => {
 }
 
 
-export const applyRootFilter = (filter) => (dispatch) => {
+export const applyRootFilter = (filter, data) => (dispatch) => {
     dispatch({
         type: ROOT_FILTER_APPLIED,
-        payload: { rootFilter: filter }
+        payload: { rootFilter: filter, filteredData: Object.keys(data[filter]['Node 1']) }
     });
 }
 
 export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => {
     let finalList = [];
-
+    if (innerFilter === "Right Head Light Support") {
+        // debugger;
+    }
+    if (innerFilter === "AC") {
+        // debugger;
+    }
     // Checks Node 1
     let node1FilterKey = 'Checks Node 1';
     let innerData = data['Node 1'][innerFilter];
     let node1Data = groupByAndRemove(innerData, node1FilterKey);
+    let node1Keys = doCleanup(innerData, node1FilterKey);
 
-    // if (node1Data === null) {
-    //check for relationship between Node 1 and Node 2
+    if (_.keys(node1Keys).length === 0) {
+        // check for relationship between Node 1 and Issues Node 1
+        node1FilterKey = "Issues Node 1";
+        node1Data = groupByAndRemove(innerData, node1FilterKey)
+    }
+
+    // Get Outcomes Value Keys
+    else {
+        let keys = _.keys(node1Keys);
+        let refArr = [];
+        for (const key of keys) {
+            let obj = groupByAndRemove(node1Data[key], 'Outcome Number');
+            node1Keys[key] = _.keys(obj).join(",");
+        }
+    }
+
     let node2FilterKey = "Node 2";
     let node2InnerKey = 'Issues Check Node 2';
-    let node2Data = groupByAndRemove(innerData, node2FilterKey, node2InnerKey)
-    
+    let node2Data = groupByAndRemove(innerData, node2FilterKey, node2InnerKey);
+    let node2Keys = doCleanup(innerData, node2FilterKey, node2InnerKey);
+
+    if (_.keys(node2Keys).length === 0) {
+
+    }
+    // Get Outcome Dependent (Upper node)
+    else {
+        let keys = _.keys(node2Keys);
+        let refArr = [];
+        for (const key of keys) {
+            let obj = groupByAndRemove(node2Data[key], 'Outcome Dependent (Upper node)', 'Issues Check Node 2');
+            let newObj = {};
+            // newObj[key] = obj;
+            let filterParam = _.keys(obj);
+            if (filterParam && filterParam.length > 0) {
+                for (let j of filterParam) {
+                    node2Keys[key][j] = true;
+                }
+            }
+        }
+    }
+
     let node3FilterKey = "Node 3";
     let node3InnerKey = 'Issues Check Node 3';
-    let node3Data = groupByAndRemove(innerData, node3FilterKey, node3InnerKey)
-    finalList.push(node1Data,node2Data,node3Data);
+    // let node3Data = groupByAndRemove(innerData, node3FilterKey, node3InnerKey);
+
+    let node3Keys = doCleanup(innerData, node3FilterKey, node3InnerKey);
+
+    if (innerFilter === "AC") {
+        // debugger;
+    }
+    // debugger;
+    finalList.push(node1Keys, node2Keys, node3Keys);
 
     dispatch({
         type: FILTER_INNER_DATA_SUCCEDED,
@@ -65,19 +113,11 @@ export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => 
     });
 }
 
-
-export const filterData = (rootFilter, data) => (dispatch) => {
-    let payloadData = Object.keys(data[rootFilter]['Node 1']);
-    dispatch({
-        type: FILTER_DATA_SUCCEDED,
-        payload: { filteredData: payloadData }
-    });
-}
-
-function groupByAndRemove(newObject, filterKey, innerFilter) {
-    if(!newObject){
+function doCleanup(newObject, filterKey, innerFilter) {
+    if (!newObject) {
         debugger;
     }
+
     let obj = _.groupBy(newObject, filterKey);
     obj = _.mapValues(obj, x => x.map(y => _.omit(y, filterKey)));
     // let notFound = false;
@@ -95,11 +135,40 @@ function groupByAndRemove(newObject, filterKey, innerFilter) {
         for (let i = 0; i < newObject[filterKey][key].length; i++) {
             if (i !== innerFilter) {
                 delete newObject[filterKey][key][i];
-            }else{
+            } else {
                 debugger;
             }
         }
     }
+    return newObject[filterKey];
+}
+function groupByAndRemove(newObject, filterKey, innerFilter) {
+    if (!newObject) {
+        debugger;
+    }
+
+    let obj = _.groupBy(newObject, filterKey);
+    obj = _.mapValues(obj, x => x.map(y => _.omit(y, filterKey)));
+    // let notFound = false;
+    obj = _.omit(obj, "undefined");
+    if (innerFilter && Object.keys(obj).length !== 0) {
+        let innerKeys = Object.keys(obj);
+        for (const key of innerKeys) {
+            groupByAndRemove(obj[key], innerFilter, null);
+        }
+    }
+    newObject[filterKey] = obj;
+
+    // let keys = _.keys(newObject[filterKey]);
+    // for (const key of keys) {
+    //     for (let i = 0; i < newObject[filterKey][key].length; i++) {
+    //         if (i !== innerFilter) {
+    //             delete newObject[filterKey][key][i];
+    //         } else {
+    //             debugger;
+    //         }
+    //     }
+    // }
     return newObject[filterKey];
 }
 
@@ -146,7 +215,6 @@ function groupObject(newObject, filterKey, innerFilterKey) {
                     obj = _.groupBy(newObject[key], 'Issues Node 1');
                     obj = _.mapValues(obj, x => x.map(y => _.omit(y, 'Issues Node 1')));
                     obj = _.omit(obj, "undefined");
-                    debugger;
                 }
                 // groupObject(newObject[key], innerFilterKey, 'Issues Check Node 2');
             }
@@ -178,7 +246,6 @@ function groupObject(newObject, filterKey, innerFilterKey) {
         delete newObject[key];
         newObject[key] = newInnerValue;
         // newObject[key] = _.remove(newObject[key], (x,index) => {
-        //     console.log("Rupank " ,index, filterKey);
         //     if(index === filterKey){
         //     }
         //     return x;

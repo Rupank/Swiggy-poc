@@ -13,22 +13,12 @@ class HomePage extends Component {
         super(props)
         this.shouldComponentRender = this.shouldComponentRender.bind(this);
     }
-
-    componentDidMount() {
-        const { parseData, data } = this.props;
-        if (data.length !== 0) {
-            return;
-        }
-        parseData();
-    }
-
-
-
+    
     render() {
         const { data, error, applyRootFilter } = this.props;
 
         const handleClick = (index) => {
-            applyRootFilter(index);
+            applyRootFilter(index, data);
         }
 
         if (!this.shouldComponentRender()) return (
@@ -45,11 +35,12 @@ class HomePage extends Component {
                 {_.values(data).map((item, index) => (
                     <div className='stepTile' key={keys[index]} onClick={(e) => handleClick(keys[index])}>
                         <Link to={{
-                            pathname: `/steps/`
+                            pathname: `/steps/`,
+                            state: {
+                                id: keys[index]
+                              }
                         }}>
-
                             <Button className='stepTileBtn' variant="contained"> {keys[index]}</Button>
-
                         </Link>
                     </div>
 

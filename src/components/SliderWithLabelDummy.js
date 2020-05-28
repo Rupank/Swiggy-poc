@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxWithLabel from './CheckBoxWithLabel';
 import '../pages/homepage.css';
 
 function SliderWithLabelDummy(props) {
     const { item, children } = props;
-    console.log(item, children);
     const [checked, setChecked] = useState(false);
     const [checkBoxChecked, setCheckBox] = useState(false);
     const handleChange = (event) => {
@@ -42,19 +40,7 @@ function SliderWithLabelDummy(props) {
     }
     else {
         return (
-        <div className="checkBoxContainer">
-            <FormControlLabel className="checkBox"
-                control={
-                    <Checkbox
-                        checked={checkBoxChecked}
-                        onChange={handleChangeCheckBox}
-                        name={item}
-                        color="primary"
-                    />
-                }
-                label={item}
-            />
-            </div>
+            <CheckBoxWithLabel key={item} label={item} />
         )
     }
 

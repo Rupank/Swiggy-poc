@@ -1,24 +1,24 @@
-import React,{useState} from 'react'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import React, { useState } from 'react'
 import Checkbox from '@material-ui/core/Checkbox';
-function CheckBoxWithLabel({key,label}) {
+import '../pages/homepage.css';
+function CheckBoxWithLabel({ label, handleClicked }) {
     const [checked, setChecked] = useState(false);
     const handleChange = (event) => {
         setChecked(event.target.checked);
-        // setChecked(!checked);
-      };
+        if (handleClicked) {
+            handleClicked(event.target.checked);
+        }
+    };
     return (
-        <FormControlLabel
-            control={
-                <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    name={key}
-                    color="primary"
-                />
-            }
-            label={label}
-        />
+        <div className="checkBoxContainer" key={label}>
+            <Checkbox
+                checked={checked}
+                onChange={handleChange}
+                color="primary"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
+            <span>{label}</span>
+        </div>
     )
 }
 

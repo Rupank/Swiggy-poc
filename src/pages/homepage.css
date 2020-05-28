@@ -3,6 +3,7 @@ ul{
 }
 
 a{
+    width: 100%;
     text-decoration: none;
 }
 
@@ -14,6 +15,15 @@ a{
     margin-top: 5%;
     margin-bottom: 5%;
     width: 80vw;
+    justify-content: center;
+}
+.innerStepsParent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    justify-content: center;
 }
 
 .innerContainerParent{
@@ -26,16 +36,27 @@ a{
     width: 100%;
 }
 .stepTile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 50%;
     margin-bottom: 20px;
 }
 
+
 .stepTileFullWidth{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 90%;
     margin-bottom: 20px;
 }
 .stepTileBtn{
     width: 100%;
+}
+
+.sliderLable{
+    text-transform: none;
 }
 
 .stepTileBtn div{
@@ -47,7 +68,7 @@ a{
 }
 
 .checkBoxParent{
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,8 +76,19 @@ a{
     justify-content: center;
 }
 .checkBoxContainer{
-    width: 90%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 .checkBox{
     width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+    .stepTile{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+  }

@@ -1,4 +1,4 @@
-import { PARSE_DATA_SUCCESSFUL, PARSE_DATA_REQUESTED, PARSE_DATA_FAILED, FILTER_DATA_SUCCEDED, FILTER_INNER_DATA_SUCCEDED, ROOT_FILTER_APPLIED } from '../actions/types';
+import { PARSE_DATA_SUCCESSFUL, PARSE_DATA_REQUESTED, PARSE_DATA_FAILED, FILTER_INNER_DATA_SUCCEDED, ROOT_FILTER_APPLIED } from '../actions/types';
 
 const initialState = {
     data: [],
@@ -18,10 +18,8 @@ export default function (state = initialState, action) {
             return { error: action.payload.error.message, isLoading: false }
         case PARSE_DATA_SUCCESSFUL:
             return { ...state, data: action.payload.data, isLoading: false, error: '' }
-        case FILTER_DATA_SUCCEDED:
-            return { ...state, filteredData: action.payload.filteredData }
         case ROOT_FILTER_APPLIED:
-            return { ...state, rootFilter: action.payload.rootFilter }
+            return { ...state, rootFilter: action.payload.rootFilter, filteredData:action.payload.filteredData }
         case FILTER_INNER_DATA_SUCCEDED:
             let obj = {};
             obj[action.payload.key] = action.payload.value;
