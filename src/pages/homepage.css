@@ -43,6 +43,13 @@ a{
     margin-bottom: 20px;
 }
 
+.customCheckSteps{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 10px;
+}
 
 .stepTileFullWidth{
     display: flex;
@@ -82,6 +89,23 @@ a{
     justify-content: flex-start;
     align-items: center;
 }
+.stepsContainer{
+    width: 100%;
+}
+.refurbParent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.refurbHeading{
+    font-weight: 600;
+    margin-bottom: 5%;
+}
+.refurbValues{
+    text-align: left;
+}
 .checkBox{
     width: 100%;
 }
@@ -90,6 +114,9 @@ a{
     .stepTile{
         width: 100%;
         margin-bottom: 20px;
+    }
+    .customCheckSteps{
+        width: 100%;
     }
   }
 

@@ -42,12 +42,6 @@ export const applyRootFilter = (filter, data) => (dispatch) => {
 
 export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => {
     let finalList = [];
-    if (innerFilter === "Right Head Light Support") {
-        // debugger;
-    }
-    if (innerFilter === "AC") {
-        // debugger;
-    }
     // Checks Node 1
     let node1FilterKey = 'Checks Node 1';
     let innerData = data['Node 1'][innerFilter];
@@ -100,11 +94,6 @@ export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => 
     // let node3Data = groupByAndRemove(innerData, node3FilterKey, node3InnerKey);
 
     let node3Keys = doCleanup(innerData, node3FilterKey, node3InnerKey);
-
-    if (innerFilter === "AC") {
-        // debugger;
-    }
-    // debugger;
     finalList.push(node1Keys, node2Keys, node3Keys);
 
     dispatch({

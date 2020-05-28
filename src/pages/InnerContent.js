@@ -6,19 +6,20 @@ import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
 function InnerContent(props) {
     const { filters } = props;
     const allOkKey = 'All Ok';
-    const [checkBox, setCheckBox] = useState({
+    const initalState = {
         'All Ok': true
-    });
+    }
+    const [checkBox, setCheckBox] = useState({});
     const handleChangeCheckBox = (key, value) => {
 
-        if (key === allOkKey) {
-            value = true;
-        }
+        // if (key === allOkKey) {
+        //     value = true;
+        // }
         let obj = {};
         obj[key] = value;
         setCheckBox({ ...checkBox, ...Object.assign(checkBox, obj) });
     };
-    
+
     const dataNode1 = filters[0];
     const dataNode2 = filters[1];
     const dataNode3 = filters[2];
@@ -59,11 +60,15 @@ function InnerContent(props) {
     node1final = _.keys(dataNode1);
     let itemValue = [];
     let itemInnerValues = {};
+
+    // If Node 1 Issues does not exits (for ex in steps 3 AC, (its node 1 inner checkboxes does not exits))
     if (filterRefs.length === 0) {
         return <div className="innerContainerParent">
             {
                 _.keys(finalValues).map(item => (
-                    <SliderWithLabelDummy key={`${item}`} item={item} children={_.keys(finalValues[item])} />
+                    <SliderWithLabelDummy key={`${item}`} item={item} children={_.keys(finalValues[item])}
+                        childrenValues={_.values(finalValues[item])}
+                    />
                 ))
             }
         </div>
@@ -83,7 +88,7 @@ function InnerContent(props) {
                     _.keys(finalValues).map(item => (
                         checkBox[item] &&
                         finalValues[item].map((indItem, value) => (
-                            <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} />
+                            <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
                         ))
                     ))
                 }
