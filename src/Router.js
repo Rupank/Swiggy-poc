@@ -10,7 +10,7 @@ const Router = () => {
             <DataLoader />
             <Switch>
                 <Route exact path='/' component={HomePage} />
-                <Route exact path='/steps/' component={Content} />
+                <Route exact path='/:id' component={Content} />
             </Switch>
         </>
     )

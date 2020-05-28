@@ -13,7 +13,7 @@ class HomePage extends Component {
         super(props)
         this.shouldComponentRender = this.shouldComponentRender.bind(this);
     }
-    
+
     render() {
         const { data, error, applyRootFilter } = this.props;
 
@@ -35,10 +35,10 @@ class HomePage extends Component {
                 {_.values(data).map((item, index) => (
                     <div className='stepTile' key={keys[index]} onClick={(e) => handleClick(keys[index])}>
                         <Link to={{
-                            pathname: `/steps/`,
-                            state: {
-                                id: keys[index]
-                              }
+                            pathname: `/${keys[index].replace(" ","")}/`,
+                            // state: {
+                            //     id: keys[index]
+                            // }
                         }}>
                             <Button className='stepTileBtn' variant="contained"> {keys[index]}</Button>
                         </Link>

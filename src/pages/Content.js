@@ -10,7 +10,9 @@ function Content(props) {
     const { data, filtererdData, error, isLoading, applyRootFilter } = props;
     useEffect(() => {
         if (filtererdData.length === 0 && _.keys(data).length > 0) {
-            applyRootFilter(props.location.state.id, data);
+            let route = props.match.params.id;
+            let parsedRoute = `${route.substring(0,route.length -1)} ${route[route.length-1]}`
+            applyRootFilter(parsedRoute, data);
         }
     })
     const handleClick = (val, item) => {
