@@ -34,14 +34,14 @@ function SliderWithLabel(props) {
     };
     return (
         <div className="stepTile">
-            <Button className='stepTileBtn' variant="contained">
+            <Button className='stepTileBtn' variant="contained" onClick={handleChange}>
                 <div>
                     <div className="sliderLable">
                         {item}
                     </div>
                     {showToggleBtn && <Switch className="slider"
                         checked={checked}
-                        onChange={handleChange}
+                        // onChange={handleChange}
                         color="primary"
                         name="checked"
                         inputProps={{ 'aria-label': 'primary checkbox' }}

@@ -18,14 +18,14 @@ function SliderWithLabelDummy(props) {
 
     if (children && children.length > 0) {
         return <div className="stepTileFullWidth" key={item}>
-            <Button className='stepTileBtn' variant="contained">
+            <Button className='stepTileBtn' variant="contained" onClick={handleChange}>
                 <div>
                     <div className="sliderLable">
                         {item}
                     </div>
                     < Switch
                         checked={checked}
-                        onChange={handleChange}
+                        // onChange={handleChange}
                         color="primary"
                         name="checked"
                         inputProps={{ 'aria-label': 'primary checkbox' }}
