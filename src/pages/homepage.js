@@ -104,7 +104,7 @@ function HomePage(props) {
                     {buttonStatus[keys[index]] && <div className='stepTile' key={keys[index]} onClick={(e) => handleClick(keys[index])}>
 
                         <Link to={{
-                            pathname: `/${keys[index].replace(" ", "")}/`
+                            pathname: `/${keys[index].replace(" ", "")}`
                         }}>
                             <Button className='stepTileBtn' variant="contained" > {keys[index]}</Button>
                         </Link>

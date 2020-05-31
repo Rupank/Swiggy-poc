@@ -4,20 +4,21 @@ import '../pages/homepage.css';
 function CheckBoxWithLabel({ label, handleClicked }) {
     const [checked, setChecked] = useState(false);
     const handleChange = (event) => {
-        setChecked(event.target.checked);
+        let newChecKValue = !checked;
+        setChecked(newChecKValue);
         if (handleClicked) {
-            handleClicked(event.target.checked);
+            handleClicked(newChecKValue);
         }
     };
     return (
-        <div className="checkBoxContainer" key={label}>
+        <div className="checkBoxContainer" key={label} onClick = {handleChange}>
             <Checkbox
                 checked={checked}
-                onChange={handleChange}
+                // onChange={handleChange}
                 color="primary"
                 inputProps={{ 'aria-label': 'secondary checkbox' }}
             />
-            <span>{label}</span>
+            <div className="checkBoxLabel">{label}</div>
         </div>
     )
 }

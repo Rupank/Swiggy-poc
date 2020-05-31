@@ -113,6 +113,9 @@ a{
 .checkBox{
     width: 100%;
 }
+.checkBoxLabel{
+    cursor: pointer;
+}
 
 @media screen and (max-width: 768px) {
     .stepTile{
