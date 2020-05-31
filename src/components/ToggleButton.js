@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
-import '../pages/homepage.css';
 
 function ToggleButton(props) {
     const { item } = props;

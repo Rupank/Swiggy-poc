@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { getError, getPending, getFilteredData, getAllData } from '../reducers/productReducer';
 import { applyRootFilter } from '../actions/productActions';
 import SliderWithLabel from '../components/SliderWithLabel';
-import './homepage.css'
 function Content(props) {
     const { data, filtererdData, error, isLoading, applyRootFilter } = props;
     useEffect(() => {

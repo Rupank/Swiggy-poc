@@ -3,7 +3,6 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import CheckBoxWithLabel from './CheckBoxWithLabel';
 import * as _ from 'lodash';
-import '../pages/homepage.css';
 
 function SliderWithLabelDummy(props) {
     const { item, children, childrenValues } = props;

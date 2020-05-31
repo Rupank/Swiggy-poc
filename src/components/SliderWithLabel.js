@@ -7,7 +7,6 @@ import { getError, getPending, getFilteredData, getRootFilter, getAllData, getIn
 import { filterInnerData } from '../actions/productActions';
 import Button from '@material-ui/core/Button';
 import * as _ from 'lodash';
-import '../pages/homepage.css';
 
 function SliderWithLabel(props) {
     const { item, handleClick, filterInnerData, rootFilter, data, innerFilters } = props;

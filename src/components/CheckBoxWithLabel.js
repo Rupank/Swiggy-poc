@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Checkbox from '@material-ui/core/Checkbox';
-import '../pages/homepage.css';
 function CheckBoxWithLabel({ label, handleClicked }) {
     const [checked, setChecked] = useState(false);
     const handleChange = (event) => {

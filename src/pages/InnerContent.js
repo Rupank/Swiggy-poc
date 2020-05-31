@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import * as _ from 'lodash';
 import CheckBoxWithLabel from '../components/CheckBoxWithLabel';
-import './homepage.css';
 import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
 function InnerContent(props) {
     const { filters } = props;

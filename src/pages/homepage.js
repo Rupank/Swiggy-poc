@@ -7,7 +7,6 @@ import { getAllData, getError, getPending } from '../reducers/productReducer';
 import { parseData, applyRootFilter } from '../actions/productActions';
 import Button from '@material-ui/core/Button';
 import ToggleButton from '../components/ToggleButton';
-import './homepage.css';
 
 function HomePage(props) {
     const { data, error, applyRootFilter, isLoading } = props;
