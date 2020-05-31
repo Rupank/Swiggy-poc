@@ -22,11 +22,11 @@ function InnerContent(props) {
     const dataNode1 = filters[0];
     const dataNode2 = filters[1];
     const dataNode3 = filters[2];
-
     let finalValues = [];
-    let filterRefs = _.values(dataNode1);
-    if (filterRefs.length > 0) {
-        for (let i = 0; i < filterRefs.length; i++) {
+    let filterRefNode1 = _.values(dataNode1);
+    let filterRefNode2 = _.values(dataNode2);
+    if (filterRefNode1.length > 0 && filterRefNode2.length > 0) {
+        for (let i = 0; i < filterRefNode1.length; i++) {
             let refKey = _.keys(dataNode1)[i];
             const keys = _.keys(dataNode2);
             let innerArr = [];
@@ -36,7 +36,7 @@ function InnerContent(props) {
                 let innerElement = dataNode2[key]['Issues Check Node 2'];
                 obj[key] = innerElement;
 
-                if (dataNode2[key][filterRefs[i]]) {
+                if (dataNode2[key][filterRefNode1[i]]) {
                     innerArr.push(obj);
                 }
                 else {
@@ -46,7 +46,7 @@ function InnerContent(props) {
             finalValues[allOkKey] = allOkArr;
             finalValues[refKey] = innerArr;
         }
-    } else {
+    } else if (filterRefNode1.length == 0) {
         const keys = _.keys(dataNode2);
         let innerArr = [];
         let allOkArr = [];
@@ -55,13 +55,20 @@ function InnerContent(props) {
             finalValues[key] = innerElement;
         }
     }
-    let node1final;
-    node1final = _.keys(dataNode1);
-    let itemValue = [];
-    let itemInnerValues = {};
+
+    // Display Issues Node 1
+    else if (filterRefNode1.length > 0 && filterRefNode2.length == 0) {
+        const keys = _.keys(dataNode1);
+        let innerArr = [];
+        let allOkArr = [];
+        for (const key of keys) {
+            let innerElement = dataNode1[key][0];
+            finalValues[key] = innerElement;
+        }
+    }
 
     // If Node 1 Issues does not exits (for ex in steps 3 AC, (its node 1 inner checkboxes does not exits))
-    if (filterRefs.length === 0) {
+    if (filterRefNode1.length === 0) {
         return <div className="innerContainerParent">
             {
                 _.keys(finalValues).map(item => (
@@ -72,11 +79,23 @@ function InnerContent(props) {
             }
         </div>
     }
+
+    if (filterRefNode1.length != 0 && filterRefNode2.length == 0) {
+        return <div className="innerContainerParent">
+            {
+                // _.keys(finalValues).map(item => (
+                <SliderWithLabelDummy children={_.keys(finalValues)}
+                    childrenValues={_.values(finalValues)}
+                />
+                // ))
+            }
+        </div>
+    }
     return (
         <>
             <div className="checkBoxParent">
                 {
-                    filterRefs.length > 0 && _.keys(finalValues).map((item) => (
+                    filterRefNode1.length > 0 && _.keys(finalValues).map((item) => (
                         <CheckBoxWithLabel key={item} label={item} handleClicked={(val) => handleChangeCheckBox(item, val)} />
                     ))
                 }

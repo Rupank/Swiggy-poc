@@ -23,7 +23,11 @@ function SliderWithLabel(props) {
     useEffect(() => {
         const filter = innerFilters[`${rootFilter}_${item}`];
         if (filter && filter[0] && _.keys(filter[0]).length > 0) {
-            setToggleBtnVisibility(false);
+            if(_.values(filter[1]).length ===0){
+                setToggleBtnVisibility(true);
+            }else{
+                setToggleBtnVisibility(false);
+            }
         }
     })
 

@@ -47,11 +47,11 @@ export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => 
     let innerData = data['Node 1'][innerFilter];
     let node1Data = groupByAndRemove(innerData, node1FilterKey);
     let node1Keys = doCleanup(innerData, node1FilterKey);
-
     if (_.keys(node1Keys).length === 0) {
         // check for relationship between Node 1 and Issues Node 1
         node1FilterKey = "Issues Node 1";
         node1Data = groupByAndRemove(innerData, node1FilterKey)
+        node1Keys = node1Data;
     }
 
     // Get Outcomes Value Keys
