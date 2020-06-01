@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as _ from 'lodash';
 import CheckBoxWithLabel from '../components/CheckBoxWithLabel';
 import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
+import ListByCatFilter from '../components/ListByCatFilter';
 function InnerContent(props) {
     const { filters } = props;
     const allOkKey = 'All Ok';
@@ -10,7 +11,6 @@ function InnerContent(props) {
     }
     const [checkBox, setCheckBox] = useState({});
     const handleChangeCheckBox = (key, value) => {
-
         // if (key === allOkKey) {
         //     value = true;
         // }
@@ -26,11 +26,12 @@ function InnerContent(props) {
     let filterRefNode1 = _.values(dataNode1);
     let filterRefNode2 = _.values(dataNode2);
     if (filterRefNode1.length > 0 && filterRefNode2.length > 0) {
+        let allOkArr = [];
+        let removeArr = [];
         for (let i = 0; i < filterRefNode1.length; i++) {
             let refKey = _.keys(dataNode1)[i];
             const keys = _.keys(dataNode2);
             let innerArr = [];
-            let allOkArr = [];
             for (const key of keys) {
                 let obj = {};
                 let innerElement = dataNode2[key]['Issues Check Node 2'];
@@ -38,14 +39,29 @@ function InnerContent(props) {
 
                 if (dataNode2[key][filterRefNode1[i]]) {
                     innerArr.push(obj);
+                    removeArr[key] = innerElement;
                 }
                 else {
-                    allOkArr.push(obj);
+                    if (!allOkArr[key]) {
+                        allOkArr[key] = innerElement;
+                    }
                 }
             }
-            finalValues[allOkKey] = allOkArr;
+            finalValues[allOkKey] = [];
             finalValues[refKey] = innerArr;
         }
+        let keys = _.keys(finalValues);
+        allOkArr = _.omit(allOkArr, _.keys(removeArr));
+        let newArr = [];
+        let allOkKeys = _.keys(allOkArr);
+        for (let indkey of allOkKeys) {
+            let obj = {};
+            obj[indkey] = allOkArr[indkey];
+            newArr.push(obj);
+        }
+        allOkArr = newArr;
+        finalValues[allOkKey] = allOkArr;
+
     } else if (filterRefNode1.length == 0) {
         const keys = _.keys(dataNode2);
         let innerArr = [];
@@ -80,7 +96,7 @@ function InnerContent(props) {
         </div>
     }
 
-    if (filterRefNode1.length != 0 && filterRefNode2.length == 0) {
+    if (filterRefNode1.length !== 0 && filterRefNode2.length === 0) {
         return <div className="innerContainerParent">
             {
                 // _.keys(finalValues).map(item => (
@@ -103,11 +119,12 @@ function InnerContent(props) {
 
             <div className="innerStepsParent">
                 {
-                    _.keys(finalValues).map(item => (
+                    _.keys(finalValues).map((item, index) => (
                         checkBox[item] &&
-                        finalValues[item].map((indItem, value) => (
-                            <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
-                        ))
+                        <ListByCatFilter key={index} list={finalValues[item]} />
+                        // finalValues[item].map((indItem, value) => (
+                        //     <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
+                        // ))
                     ))
                 }
             </div>
