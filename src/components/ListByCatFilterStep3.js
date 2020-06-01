@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button';
 import SliderWithLabelDummy from './SliderWithLabelDummy';
 import * as _ from "lodash";
-function ListByCatFilter(props) {
+
+function ListByCatFilterStep3(props) {
     const { list } = props;
     const [catList, setcatList] = useState({});
     const [currentCat, setCurrentCat] = useState(1);
@@ -13,7 +14,7 @@ function ListByCatFilter(props) {
         let keys = _.keys(list);
         let catObj = {};
         for (let key of keys) {
-            let innerArr = _.values(list[key]);
+            let innerArr = _.values(list[key])[0];
             let innerKeys = _.keys(innerArr);
             if (innerKeys.length > 0) {
                 for (let innerKey of innerKeys) {
@@ -23,7 +24,9 @@ function ListByCatFilter(props) {
                         if (!catObj[obj]) {
                             catObj[obj] = [];
                         }
-                        catObj[obj].push(key);
+                        catObj[obj].push(_.keys(list[key])[0]);
+                        // catObj[obj]
+                        // catObj[_.keys(list[key])[0]] = obj;
                         break;
                     }
                 }
@@ -54,10 +57,10 @@ function ListByCatFilter(props) {
         }
     }
 
-    const isExistInCatList = (item) => {
-        let currCatCond = (catList[currentCat] && catList[currentCat].indexOf(item) !== -1) ? true : false;
-        let prevCatCond = ((catList[currentCat - 1] && catList[currentCat - 1].indexOf(item) !== -1) || currCatCond) ? true : false;
-        let secondLastCatCond = ((catList[currentCat - 2] && catList[currentCat - 2].indexOf(item) !== -1) || prevCatCond) ? true : false;
+    const isExistInCatList = (indItem) => {
+        let currCatCond = (catList[currentCat] && catList[currentCat].indexOf(_.keys(indItem)[0]) !== -1) ? true : false;
+        let prevCatCond = ((catList[currentCat - 1] && catList[currentCat - 1].indexOf(_.keys(indItem)[0]) !== -1) || currCatCond) ? true : false;
+        let secondLastCatCond = ((catList[currentCat - 2] && catList[currentCat - 2].indexOf(_.keys(indItem)[0]) !== -1) || prevCatCond) ? true : false;
         if (currentCat === 1) {
             if (currCatCond) {
                 return true;
@@ -76,19 +79,14 @@ function ListByCatFilter(props) {
             }
             return false;
         }
-        return true;
+        return false;
     }
 
     if (_.keys(catList).length > 0) {
         return (<div className="innerStepsParent">
-            {_.keys(list).map((item) => (
-                isExistInCatList(item) &&
-                <SliderWithLabelDummy
-                    key={`${item}`}
-                    item={item}
-                    children={_.keys(list[item])}
-                    childrenValues={_.values(list[item])}
-                />
+            {list.map((indItem, value) => (
+                isExistInCatList(indItem) &&
+                <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
             ))}
             {showMore &&
                 <div className="stepTileFullWidth">
@@ -103,4 +101,4 @@ function ListByCatFilter(props) {
     return null;
 }
 
-export default ListByCatFilter
+export default ListByCatFilterStep3

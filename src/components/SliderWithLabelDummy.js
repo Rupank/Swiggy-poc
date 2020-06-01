@@ -17,13 +17,13 @@ function SliderWithLabelDummy(props) {
         console.log(suggestedRefurbs);
         let obj = suggestedRefurbs;
         const keys = _.keys(suggestedRefurbs);
-        for(const key of keys){
-            if(suggestedRefurbs[key] === value ){
+        for (const key of keys) {
+            if (suggestedRefurbs[key] === value) {
                 delete obj[key];
             }
         }
 
-        setRefurbs({...Object.assign(obj)});
+        setRefurbs({ ...Object.assign(obj) });
     }
     const handleClickCheckBox = (val, checkBoxLabel, actions, index) => {
         if (actions) {

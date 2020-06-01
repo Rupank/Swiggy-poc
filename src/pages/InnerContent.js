@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as _ from 'lodash';
 import CheckBoxWithLabel from '../components/CheckBoxWithLabel';
 import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
+import ListByCatFilterStep3 from '../components/ListByCatFilterStep3';
 import ListByCatFilter from '../components/ListByCatFilter';
 function InnerContent(props) {
     const { filters } = props;
@@ -87,11 +88,7 @@ function InnerContent(props) {
     if (filterRefNode1.length === 0) {
         return <div className="innerContainerParent">
             {
-                _.keys(finalValues).map(item => (
-                    <SliderWithLabelDummy key={`${item}`} item={item} children={_.keys(finalValues[item])}
-                        childrenValues={_.values(finalValues[item])}
-                    />
-                ))
+                <ListByCatFilter list={finalValues} />
             }
         </div>
     }
@@ -121,7 +118,7 @@ function InnerContent(props) {
                 {
                     _.keys(finalValues).map((item, index) => (
                         checkBox[item] &&
-                        <ListByCatFilter key={index} list={finalValues[item]} />
+                        <ListByCatFilterStep3 key={index} list={finalValues[item]} />
                         // finalValues[item].map((indItem, value) => (
                         //     <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
                         // ))
