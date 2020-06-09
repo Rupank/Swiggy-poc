@@ -22,3 +22,142 @@ code {
 ul {
   list-style-type: none;
 }
+
+ul{
+  list-style-type: none;
+}
+
+a{
+  width: 100%;
+  text-decoration: none;
+}
+
+.stepsParent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 80vw;
+  justify-content: center;
+}
+.innerStepsParent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  justify-content: center;
+}
+.catFilterListParent{
+  width: 100%;
+}
+
+.innerContainerParent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 100%;
+}
+.stepTile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.customCheckSteps{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.stepTileFullWidth{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 20px;
+}
+.stepTileBtn{
+  width: 100%;
+}
+
+.sliderLable{
+  text-transform: none;
+}
+
+.stepTileBtn div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkBoxParent{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+.checkBoxContainer{
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.stepsContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.refurbParent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.refurbHeading{
+  font-weight: 600;
+  margin-bottom: 5%;
+}
+
+.checkBox{
+  width: 100%;
+}
+.checkBoxLabel{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .stepTile{
+      width: 100%;
+      margin-bottom: 20px;
+  }
+  .customCheckSteps{
+      width: 100%;
+  }
+}
+
+/* @media screen and (max-width: 1200px) {
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 480px) {
+} */

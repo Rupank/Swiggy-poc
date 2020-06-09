@@ -13,16 +13,15 @@ export const parseData = () => (dispatch) => {
     object = _.mapValues(object, x => x.map(y => _.omit(y, "Process Sequence ")));
     newObject = object;
     console.log("Before", newObject);
-    let nodesArray = ['Node 1', 'Node 2', 'Node 3'];
 
     let filterKey = "Node 1";
-    groupObject2(newObject, filterKey);
+    groupObject(newObject, filterKey);
 
-    filterKey = "Node 2";
-    groupObject2(newObject, filterKey);
+    // filterKey = "Node 2";
+    // groupObject(newObject, filterKey);
 
-    filterKey = "Node 3";
-    groupObject2(newObject, filterKey);
+    // filterKey = "Node 3";
+    // groupObject(newObject, filterKey);
 
     cleanUp(newObject);
     dispatch({
@@ -57,7 +56,6 @@ export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => 
     // Get Outcomes Value Keys
     else {
         let keys = _.keys(node1Keys);
-        let refArr = [];
         for (const key of keys) {
             let obj = groupByAndRemove(node1Data[key], 'Outcome Number');
             node1Keys[key] = _.keys(obj).join(",");
@@ -75,11 +73,8 @@ export const filterInnerData = (rootFilter, data, innerFilter) => (dispatch) => 
     // Get Outcome Dependent (Upper node)
     else {
         let keys = _.keys(node2Keys);
-        let refArr = [];
         for (const key of keys) {
             let obj = groupByAndRemove(node2Data[key], 'Outcome Dependent (Upper node)', 'Issues Check Node 2');
-            let newObj = {};
-            // newObj[key] = obj;
             let filterParam = _.keys(obj);
             if (filterParam && filterParam.length > 0) {
                 for (let j of filterParam) {
@@ -175,7 +170,7 @@ function cleanUp(newObject) {
         newObject[key]['Node 3'] = node3;
     }
 }
-function groupObject2(newObject, filterKey, doCleanup) {
+function groupObject(newObject, filterKey, doCleanup) {
     let keys = Object.keys(newObject);
     for (const key of keys) {
         let obj = _.groupBy(newObject[key], filterKey);
@@ -183,61 +178,5 @@ function groupObject2(newObject, filterKey, doCleanup) {
         // let notFound = false;
         obj = _.omit(obj, "undefined");
         newObject[key][filterKey] = obj;
-    }
-}
-
-function groupObject(newObject, filterKey, innerFilterKey) {
-    let keys = Object.keys(newObject);
-    for (const key of keys) {
-        let obj = _.groupBy(newObject[key], filterKey);
-        // obj = _.mapValues(obj, x => x.map(y => _.omit(y, [...nodesArray,'Issues Check Node 2'])));
-        obj = _.mapValues(obj, x => x.map(y => _.omit(y, filterKey)));
-        obj = _.omit(obj, "undefined");
-        let innerTempKeys = Object.keys(obj);
-        if (innerTempKeys.length === 0) {
-            if (filterKey === "Checks Node 1" && innerFilterKey === 'Node 2') {
-                obj = _.groupBy(newObject[key], innerFilterKey);
-                obj = _.mapValues(obj, x => x.map(y => _.omit(y, innerFilterKey)));
-                obj = _.omit(obj, "undefined");
-                if (Object.keys(obj).length === 0) {
-                    // Issues Node 1
-                    obj = _.groupBy(newObject[key], 'Issues Node 1');
-                    obj = _.mapValues(obj, x => x.map(y => _.omit(y, 'Issues Node 1')));
-                    obj = _.omit(obj, "undefined");
-                }
-                // groupObject(newObject[key], innerFilterKey, 'Issues Check Node 2');
-            }
-            else if (filterKey === "Node 2" && innerFilterKey === 'Issues Check Node 2') {
-                obj = _.groupBy(newObject[key], innerFilterKey);
-                obj = _.mapValues(obj, x => x.map(y => _.omit(y, innerFilterKey)));
-                obj = _.omit(obj, "undefined");
-                // groupObject(newObject[key], innerFilterKey, 'Issues Check Node 2');
-            }
-        }
-        let newInnerValue = {};
-        newInnerValue[filterKey] = obj;
-        // Node 2 inside Node 1
-        if (innerFilterKey !== null && innerFilterKey !== undefined) {
-
-            // check for Node 2 Inside Checks Node 1
-            if (filterKey === "Node 1" && innerFilterKey === 'Checks Node 1') {
-                groupObject(obj, innerFilterKey, 'Node 2');
-            }
-
-            // check for Issues Check Node 2 inside Node 2
-            if (filterKey === "Checks Node 1" && innerFilterKey === 'Node 2') {
-                groupObject(obj, innerFilterKey, 'Issues Check Node 2');
-            }
-
-
-        }
-        newObject[key] = null;
-        delete newObject[key];
-        newObject[key] = newInnerValue;
-        // newObject[key] = _.remove(newObject[key], (x,index) => {
-        //     if(index === filterKey){
-        //     }
-        //     return x;
-        // } );
     }
 }

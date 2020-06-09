@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react'
 import Switch from '@material-ui/core/Switch';
-import InnerContent from '../pages/InnerContent';
+import InnerList from '../pages/InnerList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getError, getPending, getFilteredData, getRootFilter, getAllData, getInnerFilters } from '../reducers/productReducer';
@@ -8,7 +8,7 @@ import { filterInnerData } from '../actions/productActions';
 import Button from '@material-ui/core/Button';
 import * as _ from 'lodash';
 
-function SliderWithLabel(props) {
+function ToggleWithLabelParent(props) {
     const { item, filterInnerData, rootFilter, data, innerFilters } = props;
     const [checked, setChecked] = useState(false);
     const [showToggleBtn, setToggleBtnVisibility] = useState(true);
@@ -51,7 +51,7 @@ function SliderWithLabel(props) {
                     />}
                 </div>
             </Button>
-            {(!showToggleBtn || checked) && <InnerContent filters={innerFilters[`${rootFilter}_${item}`]} />}
+            {(!showToggleBtn || checked) && <InnerList filters={innerFilters[`${rootFilter}_${item}`]} />}
         </div>
     )
 }
@@ -67,4 +67,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     filterInnerData: filterInnerData
 }, dispatch)
-export default memo(connect(mapStateToProps, mapDispatchToProps)(SliderWithLabel));
+export default memo(connect(mapStateToProps, mapDispatchToProps)(ToggleWithLabelParent));

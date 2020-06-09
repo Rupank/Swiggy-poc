@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react'
 import Button from '@material-ui/core/Button';
-import SliderWithLabelDummy from './SliderWithLabelDummy';
+import ToggleWithLabelDummy from './ToggleWithLabelDummy';
 import * as _ from "lodash";
 
 function ListByCatFilterStep3(props) {
@@ -20,7 +20,6 @@ function ListByCatFilterStep3(props) {
                 for (let innerKey of innerKeys) {
                     let obj = parseInt(innerArr[innerKey][0]['App Category\n (show more)'], 10);
                     if (obj) {
-                        let newObj = {};
                         if (!catObj[obj]) {
                             catObj[obj] = [];
                         }
@@ -86,7 +85,7 @@ function ListByCatFilterStep3(props) {
         return (<div className="innerStepsParent">
             {list.map((indItem, value) => (
                 isExistInCatList(indItem) &&
-                <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
+                <ToggleWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
             ))}
             {showMore &&
                 <div className="stepTileFullWidth">

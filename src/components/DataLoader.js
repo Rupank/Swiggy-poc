@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllData, getError, getPending } from '../reducers/productReducer';
-import { parseData, applyRootFilter } from '../actions/productActions';
+import { parseData } from '../actions/productActions';
 function DataLoader(props) {
     const { parseData, data } = props;
     useEffect(() => {

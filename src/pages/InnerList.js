@@ -1,15 +1,12 @@
 import React, { useState, memo } from 'react'
 import * as _ from 'lodash';
 import CheckBoxWithLabel from '../components/CheckBoxWithLabel';
-import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
+import ToggleWithLabelDummy from '../components/ToggleWithLabelDummy';
 import ListByCatFilterStep3 from '../components/ListByCatFilterStep3';
 import ListByCatFilter from '../components/ListByCatFilter';
-function InnerContent(props) {
+function InnerList(props) {
     const { filters } = props;
     const allOkKey = 'All Ok';
-    const initalState = {
-        'All Ok': true
-    }
     const [checkBox, setCheckBox] = useState({});
     const handleChangeCheckBox = (key, value) => {
         // if (key === allOkKey) {
@@ -22,7 +19,7 @@ function InnerContent(props) {
 
     const dataNode1 = filters[0];
     const dataNode2 = filters[1];
-    const dataNode3 = filters[2];
+    // const dataNode3 = filters[2];
     let finalValues = [];
     let filterRefNode1 = _.values(dataNode1);
     let filterRefNode2 = _.values(dataNode2);
@@ -51,7 +48,6 @@ function InnerContent(props) {
             finalValues[allOkKey] = [];
             finalValues[refKey] = innerArr;
         }
-        let keys = _.keys(finalValues);
         allOkArr = _.omit(allOkArr, _.keys(removeArr));
         let newArr = [];
         let allOkKeys = _.keys(allOkArr);
@@ -63,10 +59,8 @@ function InnerContent(props) {
         allOkArr = newArr;
         finalValues[allOkKey] = allOkArr;
 
-    } else if (filterRefNode1.length == 0) {
+    } else if (filterRefNode1.length === 0) {
         const keys = _.keys(dataNode2);
-        let innerArr = [];
-        let allOkArr = [];
         for (const key of keys) {
             let innerElement = dataNode2[key]['Issues Check Node 2'];
             finalValues[key] = innerElement;
@@ -74,10 +68,8 @@ function InnerContent(props) {
     }
 
     // Display Issues Node 1
-    else if (filterRefNode1.length > 0 && filterRefNode2.length == 0) {
+    else if (filterRefNode1.length > 0 && filterRefNode2.length === 0) {
         const keys = _.keys(dataNode1);
-        let innerArr = [];
-        let allOkArr = [];
         for (const key of keys) {
             let innerElement = dataNode1[key][0];
             finalValues[key] = innerElement;
@@ -97,7 +89,7 @@ function InnerContent(props) {
         return <div className="innerContainerParent">
             {
                 // _.keys(finalValues).map(item => (
-                <SliderWithLabelDummy children={_.keys(finalValues)}
+                <ToggleWithLabelDummy children={_.keys(finalValues)}
                     childrenValues={_.values(finalValues)}
                 />
                 // ))
@@ -127,4 +119,4 @@ function InnerContent(props) {
     )
 }
 
-export default memo(InnerContent)
+export default memo(InnerList)

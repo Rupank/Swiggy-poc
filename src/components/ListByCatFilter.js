@@ -1,6 +1,6 @@
 import React, { useState, useEffect,memo } from 'react'
 import Button from '@material-ui/core/Button';
-import SliderWithLabelDummy from './SliderWithLabelDummy';
+import ToggleWithLabelDummy from './ToggleWithLabelDummy';
 import * as _ from "lodash";
 function ListByCatFilter(props) {
     const { list } = props;
@@ -19,7 +19,6 @@ function ListByCatFilter(props) {
                 for (let innerKey of innerKeys) {
                     let obj = parseInt(innerArr[innerKey][0]['App Category\n (show more)'], 10);
                     if (obj) {
-                        let newObj = {};
                         if (!catObj[obj]) {
                             catObj[obj] = [];
                         }
@@ -83,7 +82,7 @@ function ListByCatFilter(props) {
         return (<div className="innerStepsParent">
             {_.keys(list).map((item) => (
                 isExistInCatList(item) &&
-                <SliderWithLabelDummy
+                <ToggleWithLabelDummy
                     key={`${item}`}
                     item={item}
                     children={_.keys(list[item])}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect,memo } from 'react'
-import * as _ from 'lodash';
 import MaterialTable from 'material-table'
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -32,10 +31,10 @@ function RefurbList(props) {
         return suggestedRefurbs.map(item => {
             let obj = {};
             for (let i = 0; i < rowKeys.length; i++) {
-                if (i == 0) {
+                if (i === 0) {
                     obj[rowKeys[i]] = item;
                 }
-                if (i == 1) {
+                if (i === 1) {
                     obj[rowKeys[i]] = price;
                 }
             }

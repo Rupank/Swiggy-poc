@@ -5,7 +5,7 @@ import CheckBoxWithLabel from './CheckBoxWithLabel';
 import * as _ from 'lodash';
 import RefurbList from './RefurbList';
 
-function SliderWithLabelDummy(props) {
+function ToggleWithLabelDummy(props) {
     const { item, children, childrenValues } = props;
     const [checked, setChecked] = useState((item === undefined) ? true : false);
     const [suggestedRefurbs, setRefurbs] = useState({});
@@ -14,7 +14,6 @@ function SliderWithLabelDummy(props) {
     };
 
     const removeRefurbOnDeleteClick = (value) => {
-        console.log(suggestedRefurbs);
         let obj = suggestedRefurbs;
         const keys = _.keys(suggestedRefurbs);
         for (const key of keys) {
@@ -87,4 +86,4 @@ function SliderWithLabelDummy(props) {
     return null;
 }
 
-export default memo(SliderWithLabelDummy);
+export default memo(ToggleWithLabelDummy);
