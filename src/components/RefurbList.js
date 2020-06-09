@@ -1,4 +1,4 @@
-import React, { useState, useEffect,memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import MaterialTable from 'material-table'
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -26,26 +26,27 @@ function RefurbList(props) {
         }];
     }
 
-    const getRowData = () => {
 
-        return suggestedRefurbs.map(item => {
-            let obj = {};
-            for (let i = 0; i < rowKeys.length; i++) {
-                if (i === 0) {
-                    obj[rowKeys[i]] = item;
-                }
-                if (i === 1) {
-                    obj[rowKeys[i]] = price;
-                }
-            }
-            return obj;
-        })
-    }
 
     const [data, setData] = useState([]);
     useEffect(() => {
+        const getRowData = () => {
+            return suggestedRefurbs.map(item => {
+                let obj = {};
+                for (let i = 0; i < rowKeys.length; i++) {
+                    if (i === 0) {
+                        obj[rowKeys[i]] = item;
+                    }
+                    if (i === 1) {
+                        obj[rowKeys[i]] = price;
+                    }
+                }
+                return obj;
+            })
+        }
         setData(getRowData());
-    }, [suggestedRefurbs])
+    }, [suggestedRefurbs]);
+    
     if (suggestedRefurbs.length > 0) {
         const columns = getColumnData();
         const actions = getActions();
