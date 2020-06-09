@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import * as _ from 'lodash';
 import CheckBoxWithLabel from '../components/CheckBoxWithLabel';
 import SliderWithLabelDummy from '../components/SliderWithLabelDummy';
@@ -119,9 +119,6 @@ function InnerContent(props) {
                     _.keys(finalValues).map((item, index) => (
                         checkBox[item] &&
                         <ListByCatFilterStep3 key={index} list={finalValues[item]} />
-                        // finalValues[item].map((indItem, value) => (
-                        //     <SliderWithLabelDummy key={value} item={_.keys(indItem)[0]} children={_.keys(indItem[_.keys(indItem)[0]])} childrenValues={_.values(indItem[_.keys(indItem)[0]])} />
-                        // ))
                     ))
                 }
             </div>
@@ -130,4 +127,4 @@ function InnerContent(props) {
     )
 }
 
-export default InnerContent
+export default memo(InnerContent)

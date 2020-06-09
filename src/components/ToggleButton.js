@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
@@ -25,4 +25,4 @@ function ToggleButton(props) {
     )
 }
 
-export default ToggleButton
+export default memo(ToggleButton)

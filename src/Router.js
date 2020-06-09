@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Route, Switch } from 'react-router-dom';
 import HomePage from './pages/homepage';
 import Content from './pages/Content';
@@ -18,4 +18,4 @@ const Router = () => {
     )
 }
 
-export default Router
+export default memo(Router)

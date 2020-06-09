@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Checkbox from '@material-ui/core/Checkbox';
 function CheckBoxWithLabel({ label, handleClicked }) {
     const [checked, setChecked] = useState(false);
@@ -22,4 +22,4 @@ function CheckBoxWithLabel({ label, handleClicked }) {
     )
 }
 
-export default CheckBoxWithLabel
+export default memo(CheckBoxWithLabel)

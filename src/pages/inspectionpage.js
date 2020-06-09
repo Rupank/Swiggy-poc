@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ function Inspectionpage() {
                         <Link to={{
                             pathname: `/homepage`
                         }}>
-                            <Button className='stepTileBtn'color="primary" variant="contained" > {item}</Button>
+                            <Button className='stepTileBtn' color="primary" variant="contained" > {item}</Button>
                         </Link>
                     }
                     {item !== 'Report' &&
@@ -25,4 +25,4 @@ function Inspectionpage() {
     )
 }
 
-export default Inspectionpage
+export default memo(Inspectionpage)

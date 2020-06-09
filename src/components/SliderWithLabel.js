@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import Switch from '@material-ui/core/Switch';
 import InnerContent from '../pages/InnerContent';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import * as _ from 'lodash';
 
 function SliderWithLabel(props) {
-    const { item, handleClick, filterInnerData, rootFilter, data, innerFilters } = props;
+    const { item, filterInnerData, rootFilter, data, innerFilters } = props;
     const [checked, setChecked] = useState(false);
     const [showToggleBtn, setToggleBtnVisibility] = useState(true);
     useEffect(() => {
@@ -23,9 +23,9 @@ function SliderWithLabel(props) {
     useEffect(() => {
         const filter = innerFilters[`${rootFilter}_${item}`];
         if (filter && filter[0] && _.keys(filter[0]).length > 0) {
-            if(_.values(filter[1]).length ===0){
+            if (_.values(filter[1]).length === 0) {
                 setToggleBtnVisibility(true);
-            }else{
+            } else {
                 setToggleBtnVisibility(false);
             }
         }
@@ -33,7 +33,7 @@ function SliderWithLabel(props) {
 
     const handleChange = (event) => {
         setChecked(!checked);
-        handleClick(!checked);
+        // handleClick(!checked);
     };
     return (
         <div className="stepTile">
@@ -67,4 +67,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     filterInnerData: filterInnerData
 }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(SliderWithLabel);
+export default memo(connect(mapStateToProps, mapDispatchToProps)(SliderWithLabel));

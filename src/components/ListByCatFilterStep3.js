@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import Button from '@material-ui/core/Button';
 import SliderWithLabelDummy from './SliderWithLabelDummy';
 import * as _ from "lodash";
@@ -101,4 +101,4 @@ function ListByCatFilterStep3(props) {
     return null;
 }
 
-export default ListByCatFilterStep3
+export default memo(ListByCatFilterStep3)

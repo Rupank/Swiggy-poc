@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllData, getError, getPending } from '../reducers/productReducer';
@@ -132,6 +132,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     applyRootFilter: applyRootFilter
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default memo(connect(mapStateToProps, mapDispatchToProps)(HomePage));
 
 

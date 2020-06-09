@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,memo } from 'react'
 import * as _ from 'lodash';
 import MaterialTable from 'material-table'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -10,7 +10,6 @@ function RefurbList(props) {
     const rowKeys = ['refurb', 'price'];
 
     const getColumnData = () => {
-
         return tableColLabels.map((colLabel, index) => {
             return { title: colLabel, field: rowKeys[index] }
         })
@@ -76,4 +75,4 @@ function RefurbList(props) {
     return null;
 }
 
-export default RefurbList
+export default memo(RefurbList)

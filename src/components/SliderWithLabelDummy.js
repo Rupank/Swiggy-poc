@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import CheckBoxWithLabel from './CheckBoxWithLabel';
@@ -87,4 +87,4 @@ function SliderWithLabelDummy(props) {
     return null;
 }
 
-export default SliderWithLabelDummy;
+export default memo(SliderWithLabelDummy);
